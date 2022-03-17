@@ -1,0 +1,187 @@
+{
+	"openapi": "3.0.1",
+	"info": {
+		"title": "Library Admin API",
+		"description": "Simple REST API for library system for admin",
+		"version": "1.0"
+	},
+	"servers": [
+		{
+			"url": "http://localhost:8080",
+			"description": "Generated server url"
+		}
+	],
+	"paths": {
+		"/book/{id}": {
+			"get": {
+				"tags": [
+					"book-controller"
+				],
+				"operationId": "find",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/Book"
+								}
+							}
+						}
+					}
+				}
+			},
+			"put": {
+				"tags": [
+					"book-controller"
+				],
+				"operationId": "updateBook",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/Book"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/Book"
+								}
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"tags": [
+					"book-controller"
+				],
+				"operationId": "delete",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK"
+					}
+				}
+			}
+		},
+		"/book/": {
+			"get": {
+				"tags": [
+					"book-controller"
+				],
+				"summary": "This is to fetch All the Books stored in Db",
+				"operationId": "allBooks",
+				"responses": {
+					"404": {
+						"description": "Not Available"
+					},
+					"200": {
+						"description": "Fetched All the Books form Db",
+						"content": {
+							"application/json": {}
+						}
+					}
+				}
+			},
+			"post": {
+				"tags": [
+					"book-controller"
+				],
+				"operationId": "create",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/Book"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"201": {
+						"description": "Created",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/Book"
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"components": {
+		"schemas": {
+			"Book": {
+				"required": [
+					"author",
+					"id",
+					"title"
+				],
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"title": {
+						"maxLength": 20,
+						"minLength": 0,
+						"type": "string"
+					},
+					"author": {
+						"maxLength": 30,
+						"minLength": 0,
+						"type": "string"
+					},
+					"price": {
+						"type": "string"
+					}
+				}
+			}
+		}
+	}
+}
